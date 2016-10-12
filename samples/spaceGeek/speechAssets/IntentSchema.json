@@ -1,7 +1,28 @@
 {
   "intents": [
     {
-      "intent": "GetNewFactIntent"
+      "intent": "GetConvertionIntent",
+      "slots": [
+      {
+        "name" : "ActOptions",
+        "type": "LIST_OF_ACT_OPTIONS"
+      },
+      {
+        "name" : "Number",
+        "type" : "AMAZON.NUMBER"
+      },
+      {
+        "name" : "KnownUnit",
+        "type" : "LIST_OF_ACT_OPTIONS"
+      },
+      {
+        "name" : "WantUnit",
+        "type" : "LIST_OF_ACT_OPTIONS"
+      }
+     ]
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"
@@ -13,4 +34,4 @@
       "intent": "AMAZON.CancelIntent"
     }
   ]
- }
+}

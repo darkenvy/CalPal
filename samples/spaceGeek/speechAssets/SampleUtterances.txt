@@ -1,14 +1,20 @@
-GetNewFactIntent a fact
-GetNewFactIntent a space fact
-GetNewFactIntent tell me a fact
-GetNewFactIntent tell me a space fact
-GetNewFactIntent give me a fact
-GetNewFactIntent give me a space fact
-GetNewFactIntent tell me trivia
-GetNewFactIntent tell me a space trivia
-GetNewFactIntent give me trivia
-GetNewFactIntent give me a space trivia
-GetNewFactIntent give me some information
-GetNewFactIntent give me some space information
-GetNewFactIntent tell me something
-GetNewFactIntent give me something
+GetConvertionIntent how many {WantUnit} would it take to burn {Number} calories by {ActOptions}
+GetConvertionIntent how many {WantUnit} to burn {Number} calories by {ActOptions}
+GetConvertionIntent how many {WantUnit} to burn {Number} calories
+GetConvertionIntent how long would it take me to burn {Number} calories by {ActOptions}
+GetConvertionIntent how long would it take to burn {Number} calories by {ActOptions}
+GetConvertionIntent how long would it take to burn {Number} calories {ActOptions}
+GetConvertionIntent how long to burn {Number} calories {ActOptions}
+GetConvertionIntent how long would I have to {ActOptions} to burn {Number} calories
+GetConvertionIntent how long to {ActOptions} to burn {Number} calories
+GetConvertionIntent {WantUnit} {ActOptions} {Number} calories
+GetConvertionIntent If I eat {Number} calories how long would I have to {ActOptions} to burn it off
+GetConvertionIntent eating {Number} calories how long would I have to {ActOptions} to burn it off
+GetConvertionIntent eating {Number} calories how much would I have to {ActOptions} to burn it off
+GetConvertionIntent eating {Number} calories how much {WantUnit} would I have to {ActOptions}
+GetConvertionIntent eating {Number} calories how much would I have to {ActOptions}
+GetConvertionIntent eating {Number} calories how {WantUnit} would I have to {ActOptions}
+GetConvertionIntent {Number} calories how {WantUnit} would I have to {ActOptions}
+GetConvertionIntent burn {Number} calories by {ActOptions}
+GetConvertionIntent {Number} calories by {ActOptions}
+GetConvertionIntent {Number} calories {ActOptions}

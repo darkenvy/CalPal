@@ -1,0 +1,7 @@
+GetConvertionIntent {Number} {KnownUnit} to {WantUnit}
+GetConvertionIntent how many {Number} {KnownUnit} to {WantUnit}
+GetConvertionIntent how many {Number} {KnownUnit} in {WantUnit}
+GetConvertionIntent how many {WantUnit} will i take to burn {Number} {KnownUnit}
+GetConvertionIntent how many {WantUnit} will it take to burn {Number} {KnownUnit}
+GetConvertionIntent how many {WantUnit} to burn {Number} {KnownUnit}
+GetConvertionIntent {WantUnit} to burn {Number} {KnownUnit}

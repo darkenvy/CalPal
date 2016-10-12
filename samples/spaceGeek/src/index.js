@@ -26,33 +26,70 @@ var APP_ID = undefined; //OPTIONAL: replace with "amzn1.echo-sdk-ams.app.[your-u
 /**
  * Array containing space facts.
  */
-var FACTS = [
-    "A year on Mercury is just 88 days long.",
-    "Despite being farther from the Sun, Venus experiences higher temperatures than Mercury.",
-    "Venus rotates counter-clockwise, possibly because of a collision in the past with an asteroid.",
-    "On Mars, the Sun appears about half the size as it does on Earth.",
-    "Earth is the only planet not named after a god.",
-    "Jupiter has the shortest day of all the planets.",
-    "The Milky Way galaxy will collide with the Andromeda Galaxy in about 5 billion years.",
-    "The Sun contains 99.86% of the mass in the Solar System.",
-    "The Sun is an almost perfect sphere.",
-    "A total solar eclipse can happen once every 1 to 2 years. This makes them a rare event.",
-    "Saturn radiates two and a half times more energy into space than it receives from the sun.",
-    "The temperature inside the Sun can reach 15 million degrees Celsius.",
-    "The Moon is moving approximately 3.8 cm away from our planet every year."
-];
+
+var convert = {
+    
+    caloriesToWalk: function(calories) {
+        return this.timeBeauty( Math.ceil(calories/5) ); // returns minutes
+    },
+    caloriesToJog: function(calories) {
+        return this.timeBeauty( Math.ceil(calories/12.5) ); // returns minutes
+    },
+    caloriesToRun: function(calories) {
+        return this.timeBeauty( Math.ceil(calories/17) ); // returns minutes
+    },
+    caloriesToSwim: function(calories) {
+        return this.timeBeauty( Math.ceil(calories/9.5) ); // returns minutes
+    },
+    caloriesToBike: function(calories) {
+        return this.timeBeauty( Math.ceil(calories/9.5) ); // returns minutes
+    },
+
+
+    timeBeauty(minutes) {
+        var hours = parseInt(minutes / 60);
+        var mins = minutes % 60;
+        if (minutes >= 60 && mins > 0) {
+            if (hours == 1) {
+                return hours + " hour and " + mins + " minutes";
+            }
+            else {
+                return hours + " hours and " + mins + " minutes";
+            }
+        }
+        else if (minutes >= 60 && mins == 0) {
+            if (hours == 1) {
+                return hours + " hour";
+            }
+            else {
+                return hours + " hours";
+            }
+        }
+        else {
+            return minutes + " minutes";
+        }
+    },
+
+
+    caloriesToSteps: function(calories) {
+        return parseInt(calories * 26.471);
+    },
+    milesToTime(miles) {
+        return 'time';
+    },
+    timeToMiles(minutes) {
+        return 'miles';
+    },
+    stepsToMiles(steps) {
+        return parseInt(steps / 2200);
+    }
+}
 
 /**
  * The AlexaSkill prototype and helper functions
  */
 var AlexaSkill = require('./AlexaSkill');
 
-/**
- * SpaceGeek is a child of AlexaSkill.
- * To read more about inheritance in JavaScript, see the link below.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
- */
 var Fact = function () {
     AlexaSkill.call(this, APP_ID);
 };
@@ -68,7 +105,10 @@ Fact.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest,
 
 Fact.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     //console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-    handleNewFactRequest(response);
+    var speechOutput = "Hey, it's Cal Pal! Your Calorie calculator.";
+    var cardTitle = '';
+    response.ask(speechOutput);
+    // handleNewConversion(response);
 };
 
 /**
@@ -80,12 +120,22 @@ Fact.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, ses
 };
 
 Fact.prototype.intentHandlers = {
-    "GetNewFactIntent": function (intent, session, response) {
-        handleNewFactRequest(response);
+    // "GetNewFactIntent": function (intent, session, response) {
+    //     handleNewConversion(response);
+    // },
+    "GetConvertionIntent": function(intent, session, response) {
+        console.log("HERE: ", intent.slots.Number.value);
+        // console.log("TYPEOF: ", intent.slots.value);
+        // var slotActOptions = intent.slots.ActOptions.value;
+        var slotActOptions = intent.slots.ActOptions.value;
+        var slotKnownUnit = intent.slots.KnownUnit.value;
+        var slotWantUnit = intent.slots.WantUnit.value;
+        var slotNumber = intent.slots.Number.value;
+        handleNewConversion(response, slotActOptions, slotKnownUnit, slotWantUnit, slotNumber);
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
-        response.ask("You can say tell me a space fact, or, you can say exit... What can I help you with?", "What can I help you with?");
+        response.ask("Ask me this: How long would I have to swim to burn off five hundred calories");
     },
 
     "AMAZON.StopIntent": function (intent, session, response) {
@@ -102,15 +152,42 @@ Fact.prototype.intentHandlers = {
 /**
  * Gets a random new fact from the list and returns to the user.
  */
-function handleNewFactRequest(response) {
-    // Get a random space fact from the space facts list
-    var factIndex = Math.floor(Math.random() * FACTS.length);
-    var randomFact = FACTS[factIndex];
-
+function handleNewConversion(response, actOptions, knownUnit, wantUnit, Number) {
     // Create speech output
-    var speechOutput = "Here's your fact: " + randomFact;
-    var cardTitle = "Your Fact";
-    response.tellWithCard(speechOutput, cardTitle, speechOutput);
+    var speechOutput = '';
+    var cardTitle = '';
+    console.log("knownunit: ", knownUnit, "wantunit: ", wantUnit, "action: ", actOptions, "number: ", Number)
+    
+
+    if (actOptions == "walk" || actOptions == "walking" || !actOptions) {
+        speechOutput = "To burn " + Number + " calories you would need to walk for about " + convert.caloriesToWalk(Number);
+    }
+    else if (actOptions && Number) {
+        if (actOptions == "jog" || actOptions == "jogging") {
+            speechOutput = "jog, To burn " + Number + " calories you would need to jog for about " + convert.caloriesToJog(Number);
+        }
+        else if (actOptions == "bike" || actOptions == "biking") {
+            speechOutput = "bike, To burn " + Number + " calories you would need to bike for about " + convert.caloriesToBike(Number);
+        }
+        else if (actOptions == "swim" || actOptions == "swimming" ) {
+            speechOutput = "swim, To burn " + Number + " calories you would need to swim for about " + convert.caloriesToSwim(Number);
+        }
+        else if (actOptions == "run" || actOptions == "running") {
+            speechOutput = "run, To burn " + Number + " calories you would need to run for about " + convert.caloriesToRun(Number);
+        }
+
+        // If all else fails, do this...
+        if (speechOutput == '') {
+            speechOutput = "To burn " + Number + " calories you would need to walk for about " + convert.caloriesToWalk(Number);
+        }
+    }
+    else if (!Number) {
+        speechOutput = "I didn't catch that. However, you burn five calories a minute walking."
+    }
+
+
+    response.ask(speechOutput);
+    // response.tellWithCard(speechOutput, cardTitle, speechOutput);
 }
 
 // Create the handler that responds to the Alexa Request.
