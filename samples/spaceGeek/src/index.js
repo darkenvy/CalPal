@@ -105,7 +105,8 @@ Fact.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest,
 
 Fact.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     //console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-    var speechOutput = "Hey, it's Cal Pal! Your Calorie calculator.";
+    var speechOutput = "Hey, it's Cal Pal! Your Calorie calculator." +
+        "You can ask me a question like: how long it will take to burn five hundred calories";
     var cardTitle = '';
     response.ask(speechOutput);
     // handleNewConversion(response);
@@ -128,10 +129,8 @@ Fact.prototype.intentHandlers = {
         // console.log("TYPEOF: ", intent.slots.value);
         // var slotActOptions = intent.slots.ActOptions.value;
         var slotActOptions = intent.slots.ActOptions.value;
-        var slotKnownUnit = intent.slots.KnownUnit.value;
-        var slotWantUnit = intent.slots.WantUnit.value;
         var slotNumber = intent.slots.Number.value;
-        handleNewConversion(response, slotActOptions, slotKnownUnit, slotWantUnit, slotNumber);
+        handleNewConversion(response, slotActOptions, slotNumber);
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
@@ -152,11 +151,11 @@ Fact.prototype.intentHandlers = {
 /**
  * Gets a random new fact from the list and returns to the user.
  */
-function handleNewConversion(response, actOptions, knownUnit, wantUnit, Number) {
+function handleNewConversion(response, actOptions, Number) {
     // Create speech output
     var speechOutput = '';
     var cardTitle = '';
-    console.log("knownunit: ", knownUnit, "wantunit: ", wantUnit, "action: ", actOptions, "number: ", Number)
+    console.log("action: ", actOptions, "number: ", Number)
     
 
     if (actOptions == "walk" || actOptions == "walking" || !actOptions) {
@@ -164,21 +163,21 @@ function handleNewConversion(response, actOptions, knownUnit, wantUnit, Number) 
     }
     else if (actOptions && Number) {
         if (actOptions == "jog" || actOptions == "jogging") {
-            speechOutput = "jog, To burn " + Number + " calories you would need to jog for about " + convert.caloriesToJog(Number);
+            speechOutput = "To burn " + Number + " calories you would need to jog for about " + convert.caloriesToJog(Number);
         }
         else if (actOptions == "bike" || actOptions == "biking") {
-            speechOutput = "bike, To burn " + Number + " calories you would need to bike for about " + convert.caloriesToBike(Number);
+            speechOutput = "To burn " + Number + " calories you would need to bike for about " + convert.caloriesToBike(Number);
         }
         else if (actOptions == "swim" || actOptions == "swimming" ) {
-            speechOutput = "swim, To burn " + Number + " calories you would need to swim for about " + convert.caloriesToSwim(Number);
+            speechOutput = "To burn " + Number + " calories you would need to swim for about " + convert.caloriesToSwim(Number);
         }
         else if (actOptions == "run" || actOptions == "running") {
-            speechOutput = "run, To burn " + Number + " calories you would need to run for about " + convert.caloriesToRun(Number);
+            speechOutput = "To burn " + Number + " calories you would need to run for about " + convert.caloriesToRun(Number);
         }
 
         // If all else fails, do this...
         if (speechOutput == '') {
-            speechOutput = "To burn " + Number + " calories you would need to walk for about " + convert.caloriesToWalk(Number);
+            speechOutput = "To burn " + Number + " calories, how about you walk for " + convert.caloriesToWalk(Number) + " instead?";
         }
     }
     else if (!Number) {
@@ -186,7 +185,8 @@ function handleNewConversion(response, actOptions, knownUnit, wantUnit, Number) 
     }
 
 
-    response.ask(speechOutput);
+    response.tell(speechOutput);
+    // response.ask(speechOutput);
     // response.tellWithCard(speechOutput, cardTitle, speechOutput);
 }
 

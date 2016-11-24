@@ -10,14 +10,6 @@
       {
         "name" : "Number",
         "type" : "AMAZON.NUMBER"
-      },
-      {
-        "name" : "KnownUnit",
-        "type" : "LIST_OF_ACT_OPTIONS"
-      },
-      {
-        "name" : "WantUnit",
-        "type" : "LIST_OF_ACT_OPTIONS"
       }
      ]
     },

@@ -1,20 +1,20 @@
-GetConvertionIntent how many {WantUnit} would it take to burn {Number} calories by {ActOptions}
-GetConvertionIntent how many {WantUnit} to burn {Number} calories by {ActOptions}
-GetConvertionIntent how many {WantUnit} to burn {Number} calories
+GetConvertionIntent how many miles would it take to burn {Number} calories by {ActOptions}
+GetConvertionIntent how many kilometers would it take to burn {Number} calories by {ActOptions}
+GetConvertionIntent how many miles to burn {Number} calories by {ActOptions}
+GetConvertionIntent how many miles to burn {Number} calories
+GetConvertionIntent eating {Number} calories how many miles would I have to {ActOptions}
+GetConvertionIntent eating {Number} calories how much would I have to {ActOptions}
+GetConvertionIntent {Number} calories how many miles would I have to {ActOptions}
 GetConvertionIntent how long would it take me to burn {Number} calories by {ActOptions}
 GetConvertionIntent how long would it take to burn {Number} calories by {ActOptions}
 GetConvertionIntent how long would it take to burn {Number} calories {ActOptions}
 GetConvertionIntent how long to burn {Number} calories {ActOptions}
 GetConvertionIntent how long would I have to {ActOptions} to burn {Number} calories
 GetConvertionIntent how long to {ActOptions} to burn {Number} calories
-GetConvertionIntent {WantUnit} {ActOptions} {Number} calories
 GetConvertionIntent If I eat {Number} calories how long would I have to {ActOptions} to burn it off
 GetConvertionIntent eating {Number} calories how long would I have to {ActOptions} to burn it off
 GetConvertionIntent eating {Number} calories how much would I have to {ActOptions} to burn it off
-GetConvertionIntent eating {Number} calories how much {WantUnit} would I have to {ActOptions}
 GetConvertionIntent eating {Number} calories how much would I have to {ActOptions}
-GetConvertionIntent eating {Number} calories how {WantUnit} would I have to {ActOptions}
-GetConvertionIntent {Number} calories how {WantUnit} would I have to {ActOptions}
 GetConvertionIntent burn {Number} calories by {ActOptions}
 GetConvertionIntent {Number} calories by {ActOptions}
 GetConvertionIntent {Number} calories {ActOptions}
